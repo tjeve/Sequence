@@ -1,3 +1,6 @@
+This project is the Phase 3 React project for Digital Crafts that creates a web app version of the board game [Sequence](https://en.wikipedia.org/wiki/Sequence_(game))
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
