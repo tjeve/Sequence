@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Board from 'board.js'
+import { Board } from './board.js';
 
 function App() {
   return (
@@ -13,7 +13,10 @@ function App() {
         </h1>
       </header>
       <body>
-        <Board />
+        <div className='board'>
+          <Board />
+        </div>
+
       </body>
     </div>
   );

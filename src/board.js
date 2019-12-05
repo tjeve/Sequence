@@ -1,3 +1,4 @@
+import React from 'react';
 /* 
 Create a Board for Sequence that uses playing cards
 
@@ -10,4 +11,4 @@ function Board (props) {
     )
 }
 
-export default Board;
+export { Board }
