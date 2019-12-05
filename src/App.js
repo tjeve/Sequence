@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-
-//Grid
+import Board from 'board.js'
 
 function App() {
   return (
@@ -13,6 +12,9 @@ function App() {
           </a>
         </h1>
       </header>
+      <body>
+        <Board />
+      </body>
     </div>
   );
 }
