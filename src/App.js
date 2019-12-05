@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <h1>
           <a className="info-link" href="https://en.wikipedia.org/wiki/Sequence_(game)">
-            Play Sequence
+            Sequence
           </a>
         </h1>
       </header>
