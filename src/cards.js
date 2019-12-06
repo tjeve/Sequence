@@ -3,6 +3,10 @@ class Card extends React.Component {
         this.suit = suit;
         this.value = value;
     }
+    getImageURL(card) {
+        return null
+
+    }
 }
 class Deck extends React.Component{
     constructor () {
@@ -39,3 +43,21 @@ class Deck extends React.Component{
     }
     
 }
+class Hand {
+    constructor () {
+        this.hand = []
+    }
+    addCard(card) {
+        this.hand.push(card)
+    }
+}
+
+const Card = (props) => {
+    if (props.suit == "♣︎" || props.suit == "♠︎") {
+      return (<div className="card card-black"><div className="card-tl"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div><div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div></div>);
+    } else {
+      return (<div className="card card-red"><div className="card-tl"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div>
+        <div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div>
+        </div>);
+    }
+  };
