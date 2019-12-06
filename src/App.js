@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Board } from './board.js';
+// import deck from './cards.js'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       </header>
       <body>
         <div className='board'>
+          
           <Board />
         </div>
 
