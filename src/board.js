@@ -1,9 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './board.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Deck from './cards.js'
+
 // import deck from './cards.js'
 /* 
 Create a Board for Sequence that uses playing cards
@@ -13,7 +16,7 @@ function Board (props) {
     console.log(props)
     return (
         <div>
-            {/* <deck /> */}
+            <Deck />
             <Container>
                 <Row>
                     <Col><span role="img" aria-label="star">⭐</span></Col>
@@ -139,5 +142,7 @@ function Board (props) {
         </div>
     )
 }
+
+ReactDOM.render(<Board />, document.getElementById('root'));
 
 export { Board } 
