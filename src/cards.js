@@ -1,14 +1,33 @@
 import React from 'react';
 import './cards.scss';
+// import { create } from 'domain';
 
-class Deck extends React.Component {
+
+const makeCardDeck = () => {
+    const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
+    const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Q", "K"];
+    let cardDeck = [];
+    let card = [];
+
+    for (let x = 0; x < suits.length; x++) {
+      for (let y = 0; y < values.length; y++) {
+        card = {key: [x,y], suit: suits[x], val: values[y]};
+        cardDeck.push(card);
+      }
+    };
+    return cardDeck
+ }
+
+class GameBoardDeck extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+          cardDeck: makeCardDeck()
+      };
     }
     
     shuffleCards(deck) {
-      console.log('shuffling deck');
+    //   console.log('shuffling deck');
       let counter = deck.length;
       let t;
       let i;
@@ -21,29 +40,30 @@ class Deck extends React.Component {
       }
       return deck;
     }
+
+    handleShuffleCards = () => {
+        let shuffledCards = this.shuffleCards(this.state.cardDeck)
+        console.log(shuffledCards)
+
+        this.setState({
+            cardDeck: shuffledCards
+        })
+
+    }
     
+    // Jacks have been removed from the Deck because they are not on the gameboard. They will need to be re-added when you create
+    // the deck for the game.
     render() {
-      const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
-      const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-      let cardDeck = [];
-      let card = [];
-  
-      for (let x = 0; x < suits.length; x++) {
-        for (let y = 0; y < values.length; y++) {
-          card = {suit: suits[x], val: values[y]};
-          cardDeck.push(card);
-        }
-      };
+      console.log(this.state.cardDeck)
       
-      this.shuffleCards(cardDeck);
-  
+      //consider rendering the gameboard here inside of this return function.
   
       return (  
         <div>
-          <button onClick={this.shuffleCards(cardDeck)}>Shuffle</button>
+          <button onClick={this.handleShuffleCards}>Shuffle</button>
           <div className="deck">
-            {cardDeck.map(function(card) {
-              return <MakeCard suit={card.suit} value={card.val} />
+            {this.state.cardDeck.map(function(card) {
+              return <MakeCard key={card.key} suit={card.suit} value={card.val} />
             })}
           </div>
         </div>
@@ -61,18 +81,7 @@ class Deck extends React.Component {
         </div>);
     }
   };
-  
-//   const RenderCards = () => {
-//     return (
-//       <div>
-//         <Deck />
-//       </div>
-//     );    
-//   };
-  
-//   ReactDOM.render(<RenderCards />, document.getElementById('root'));
 
 
-
-export default Deck
+export default GameBoardDeck
 

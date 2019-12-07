@@ -13,13 +13,13 @@ function App() {
           </a>
         </h1>
       </header>
-      <body>
+      <div className='board-container'>
         <div className='board'>
           
           <Board />
         </div>
 
-      </body>
+      </div>
     </div>
   );
 }
