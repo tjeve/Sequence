@@ -19,7 +19,7 @@ function Board (props) {
             <GameBoardDeck />
             <Container>
                 <Row>
-                    <Col><span role="img" aria-label="star">⭐</span></Col>
+                    <Col><span role="img" aria-label="star">⭐0-0 </span></Col>
                     <Col>0-1</Col>
                     <Col>0-2</Col>
                     <Col>0-3</Col>
@@ -28,7 +28,7 @@ function Board (props) {
                     <Col>0-6</Col>
                     <Col>0-7</Col>
                     <Col>0-8</Col>
-                    <Col><span role="img" aria-label="star">⭐</span></Col>
+                    <Col><span role="img" aria-label="star">⭐0-9 </span></Col>
                 </Row>
                 <Row>
                     <Col>1-0</Col>
@@ -127,7 +127,7 @@ function Board (props) {
                     <Col>8-9</Col>
                 </Row>
                 <Row>
-                    <Col><span role="img" aria-label="star">⭐</span></Col>
+                    <Col><span role="img" aria-label="star">⭐9-0 </span></Col>
                     <Col>9-1</Col>
                     <Col>9-2</Col>
                     <Col>9-3</Col>
@@ -136,7 +136,7 @@ function Board (props) {
                     <Col>9-6</Col>
                     <Col>9-7</Col>
                     <Col>9-8</Col>
-                    <Col><span role="img" aria-label="star">⭐</span></Col>
+                    <Col><span role="img" aria-label="star">⭐9-9 </span></Col>
                 </Row>
             </Container>
         </div>
