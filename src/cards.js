@@ -20,29 +20,22 @@ const makeCardDeck = () => {
     return cardDeck
  }
 
+ /* This is the part of the code you need to fix below 
+ You need to put the array being returned from Gameboard.render() and place that inside the array you're going
+ use for the gameBoard */
  const createGameBoardArray = (cardDeck) => {
     // return console.log(cardDeck[0]) // --> Returns Ace of Spades Object
-    let turnCardIntoDiv = (card) => {
-        console.log(card)
-        return <div>${card}</div>
-    }
+    const createCardsHTML = cardDeck.map(function(cardDeck) {
+        return createSingleCardHTML()
+      })
 
-
- let newArray = turnCardIntoDiv.map(cardDeck)
-    return newArray
-    // const newArray = []
-    // for (let idx = 0; idx < cardDeck.length; idx++) {
-        
-    // }
-    // return newArray
-    
-
-
-    // const createGameBoardArray = (cardArray) = {
-
-    // }
-
+      return MakeCard(cardDeck)
  }
+
+ let createSingleCardHTML = (card) => {
+    return <MakeCard key={card.key} suit={card.suit} value={card.val} />
+}
+/* This is the part of the code you need to fix above */
 
 class GameBoardDeck extends React.Component {
     constructor(props) {
