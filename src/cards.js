@@ -3,6 +3,8 @@ import './cards.scss';
 // import { create } from 'domain';
 
 
+
+
 const makeCardDeck = () => {
     const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
     const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Q", "K"];
@@ -11,11 +13,35 @@ const makeCardDeck = () => {
 
     for (let x = 0; x < suits.length; x++) {
       for (let y = 0; y < values.length; y++) {
-        card = {key: [x,y], suit: suits[x], val: values[y]};
+        card = {key: [x,y], suit: suits[x], val: values[y], type: 'card'};
         cardDeck.push(card);
       }
     };
     return cardDeck
+ }
+
+ const createGameBoardArray = (cardDeck) => {
+    // return console.log(cardDeck[0]) // --> Returns Ace of Spades Object
+    let turnCardIntoDiv = (card) => {
+        console.log(card)
+        return <div>${card}</div>
+    }
+
+
+ let newArray = turnCardIntoDiv.map(cardDeck)
+    return newArray
+    // const newArray = []
+    // for (let idx = 0; idx < cardDeck.length; idx++) {
+        
+    // }
+    // return newArray
+    
+
+
+    // const createGameBoardArray = (cardArray) = {
+
+    // }
+
  }
 
 class GameBoardDeck extends React.Component {
@@ -53,8 +79,10 @@ class GameBoardDeck extends React.Component {
     
     // Jacks have been removed from the Deck because they are not on the gameboard. They will need to be re-added when you create
     // the deck for the game.
+    
+    
     render() {
-      console.log(this.state.cardDeck)
+      console.log(createGameBoardArray(this.state.cardDeck))
       
       //consider rendering the gameboard here inside of this return function.
   
@@ -80,7 +108,29 @@ class GameBoardDeck extends React.Component {
         <div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div>
         </div>);
     }
+
   };
+
+  const BuildDeckArray = (renderedCards) => {
+    console.log(renderedCards)
+    
+    //   return (
+    //     [
+    //         [],
+    //         [],
+    //         [],
+    //         [],
+    //         [],
+    //         [],
+    //         [],
+    //         [],
+    //         [],
+    //         [],
+    //       ]
+    //   )
+  }
+
+  BuildDeckArray(GameBoardDeck)
 
 
 export default GameBoardDeck
