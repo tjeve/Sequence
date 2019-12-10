@@ -146,11 +146,11 @@ class GameBoardDeck extends React.Component {
         return gridContainer
     }
 
-    const CreateContainer = (singleRow) => {
-        return <Container>
-                    {createTenSpaceRow(singleRow)}
-        </Container>
-    }
+    // const CreateContainer = (singleRow) => {
+    //     return <Container>
+    //                 {createTenSpaceRow(singleRow)}
+    //     </Container>
+    // }
 
     return createTenSpaceRow(renderedCards.map(BuildSingleSpace))
   }
