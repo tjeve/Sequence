@@ -129,21 +129,30 @@ class GameBoardDeck extends React.Component {
     const BuildSingleSpace = (SingleCard) => {
         return <Col>{SingleCard}</Col>
     }
+    let createRow = renderedCards.map(BuildSingleSpace)
 
-    const CreateSingleRow = (singleCardCol) => {
-        return <Row>
-                    {BuildSingleSpace(singleCardCol)}
-                </Row>
+    const createTenSpaceRow = (CardArray) => {
+        let gridContainer = [[],[],[],[],[],[],[],[],[],[]]
+        for (let gridContIdx = 0; gridContIdx < gridContainer.length; gridContIdx++) {
+
+            for (let rowIdx = 0; rowIdx < CardArray.length; rowIdx++) {
+                if (gridContainer[gridContIdx].length < 10) {
+                    gridContainer[gridContIdx].push(CardArray[rowIdx])
+                } else { 
+                    gridContIdx++ 
+                }
+            }
+        }
+        return gridContainer
     }
 
     const CreateContainer = (singleRow) => {
         return <Container>
-                    {CreateSingleRow(singleRow)}
+                    {createTenSpaceRow(singleRow)}
         </Container>
     }
 
-    let createRow = renderedCards.map(BuildSingleSpace)
-    return <Row>{createRow}</Row>
+    return createTenSpaceRow(renderedCards.map(BuildSingleSpace))
   }
 
 
