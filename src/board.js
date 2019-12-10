@@ -11,13 +11,9 @@ import GameBoardDeck from './cards.js'
 /* 
 Create a Board for Sequence that uses playing cards
 */
-
-function Board (props) {
-    // console.log(props)
+function BoardContainer () {
     return (
-        <div>
-            <GameBoardDeck />
-            <Container>
+    <Container>
                 <Row>
                     <Col><span role="img" aria-label="star">⭐0-0 </span></Col>
                     <Col>0-1</Col>
@@ -139,6 +135,15 @@ function Board (props) {
                     <Col><span role="img" aria-label="star">⭐9-9 </span></Col>
                 </Row>
             </Container>
+    )
+}
+
+function Board (props) {
+    // console.log(props)
+    return (
+        <div>
+            <GameBoardDeck />
+            <BoardContainer />
         </div>
     )
 }
