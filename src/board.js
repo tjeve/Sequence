@@ -143,7 +143,6 @@ function Board (props) {
     return (
         <div>
             <GameBoardDeck />
-            <BoardContainer />
         </div>
     )
 }

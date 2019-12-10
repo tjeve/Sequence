@@ -15,14 +15,23 @@ const makeCardDeck = () => {
     const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Q", "K"];
     let cardDeck = [];
     let card = [];
-
-    for (let x = 0; x < suits.length; x++) {
-      for (let y = 0; y < values.length; y++) {
-        card = {key: [x,y], suit: suits[x], val: values[y], type: 'card'};
-        cardDeck.push(card);
-      }
-    };
-    return cardDeck
+    // Added to create 2 decks for the gameboard
+    if (cardDeck <= 44) {
+       
+        for (let x = 0; x < suits.length; x++) {
+            for (let y = 0; y < values.length; y++) {
+              card = {key: [x,y], suit: suits[x], val: values[y], type: 'card'};
+              cardDeck.push(card);
+            }
+          }; 
+    }
+    let doubleDeck = cardDeck.concat(cardDeck)
+    let freeSpace = {key: null, suit: 'free', val: null, type: 'freeSpace'}
+    let freeSpaceArray = [freeSpace, freeSpace, freeSpace, freeSpace]
+    let doubleDeckWithFreeSpaces = doubleDeck.concat(freeSpaceArray)
+    console.log('The Deck has ' + doubleDeckWithFreeSpaces.length + ' cards')
+    console.log(doubleDeckWithFreeSpaces)
+        return doubleDeckWithFreeSpaces
  }
 
  /* This is the part of the code you need to fix below 
@@ -147,6 +156,8 @@ class GameBoardDeck extends React.Component {
                 }
             }
         }
+        //Bug --> The last card in each row is not appearing (ex. Q spades for row[0], 10 hearts for row[1], 9 clubs for row[2], etc.)
+        console.log(gridContainer[9].length)
         return gridContainer
     }
     let grid = createGrid(renderedCards.map(buildSingleSpace))
