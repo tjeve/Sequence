@@ -1,7 +1,12 @@
 import React from 'react';
 import './cards.scss';
 // import { create } from 'domain';
-
+//From board.js
+import './board.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 
@@ -23,7 +28,7 @@ const makeCardDeck = () => {
  /* This is the part of the code you need to fix below 
  You need to put the array being returned from Gameboard.render() and place that inside the array you're going
  use for the gameBoard */
- const createGameBoardArray = (cardDeck) => {
+ const createRenderedGameBoard = (cardDeck) => {
 
     let createCardsHTML = cardDeck.map((card) => {return <MakeCard key={card.key} suit={card.suit} value={card.val}/>} )
 
@@ -74,12 +79,12 @@ class GameBoardDeck extends React.Component {
     
     render() {
       //consider rendering the gameboard here inside of this return function.
-        console.log(createGameBoardArray(this.state.cardDeck))
+        console.log(BuildGameBoard(createRenderedGameBoard(this.state.cardDeck)))
       return (  
         <div>
           <button onClick={this.handleShuffleCards}>Shuffle</button>
           <div className="deck">
-           {createGameBoardArray(this.state.cardDeck)}
+           {BuildGameBoard(createRenderedGameBoard(this.state.cardDeck))}
           </div>
         </div>
       );
@@ -102,26 +107,44 @@ class GameBoardDeck extends React.Component {
 
   };
 
-  const BuildDeckArray = (renderedCards) => {
-    console.log(renderedCards)
-    
-    //   return (
-    //     [
-    //         [],
-    //         [],
-    //         [],
-    //         [],
-    //         [],
-    //         [],
-    //         [],
-    //         [],
-    //         [],
-    //         [],
-    //       ]
-    //   )
-  }
+// const BuildGameBoard = (renderedDeck) => {
+//     console.log(renderedDeck)
+//     // const createRowOfTen
+//     let newRow = []
+//     let grid = []
+//     for (let idx = 0; idx < 10; idx++) {
+//         if (renderedDeck[idx].key === "0" || "0,9" || "9,0" || "9,9") {
+//             newRow.push(<Col><span role="img" aria-label="star">⭐0-0 </span></Col>)
+//         } else {newRow.push(<Col>{ renderedDeck[idx] }</Col>)}
+//     }
+//     return newRow
+//     }
 
-  BuildDeckArray(GameBoardDeck)
+
+
+
+  const BuildGameBoard = (renderedCards) => {
+
+    //Keep BuildSingleSpace.
+    const BuildSingleSpace = (SingleCard) => {
+        return <Col>{SingleCard}</Col>
+    }
+
+    const CreateSingleRow = (singleCardCol) => {
+        return <Row>
+                    {BuildSingleSpace(singleCardCol)}
+                </Row>
+    }
+
+    const CreateContainer = (singleRow) => {
+        return <Container>
+                    {CreateSingleRow(singleRow)}
+        </Container>
+    }
+
+    let createRow = renderedCards.map(BuildSingleSpace)
+    return <Row>{createRow}</Row>
+  }
 
 
 export default GameBoardDeck
