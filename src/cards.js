@@ -24,17 +24,15 @@ const makeCardDeck = () => {
  You need to put the array being returned from Gameboard.render() and place that inside the array you're going
  use for the gameBoard */
  const createGameBoardArray = (cardDeck) => {
-    // return console.log(cardDeck[0]) // --> Returns Ace of Spades Object
-    const createCardsHTML = cardDeck.map(function(cardDeck) {
-        return createSingleCardHTML()
-      })
 
-      return MakeCard(cardDeck)
+    let createCardsHTML = cardDeck.map((card) => {return <MakeCard key={card.key} suit={card.suit} value={card.val}/>} )
+
+    // console.log(createCardsHTML)
+    return createCardsHTML
+
  }
 
- let createSingleCardHTML = (card) => {
-    return <MakeCard key={card.key} suit={card.suit} value={card.val} />
-}
+
 /* This is the part of the code you need to fix above */
 
 class GameBoardDeck extends React.Component {
@@ -62,7 +60,7 @@ class GameBoardDeck extends React.Component {
 
     handleShuffleCards = () => {
         let shuffledCards = this.shuffleCards(this.state.cardDeck)
-        console.log(shuffledCards)
+        // console.log(shuffledCards)
 
         this.setState({
             cardDeck: shuffledCards
@@ -75,23 +73,23 @@ class GameBoardDeck extends React.Component {
     
     
     render() {
-      console.log(createGameBoardArray(this.state.cardDeck))
-      
       //consider rendering the gameboard here inside of this return function.
-  
+        console.log(createGameBoardArray(this.state.cardDeck))
       return (  
         <div>
           <button onClick={this.handleShuffleCards}>Shuffle</button>
           <div className="deck">
-            {this.state.cardDeck.map(function(card) {
-              return <MakeCard key={card.key} suit={card.suit} value={card.val} />
-            })}
+           {createGameBoardArray(this.state.cardDeck)}
           </div>
         </div>
       );
     }
   };
-
+/*
+  {this.state.cardDeck.map(function(card) {
+              return <MakeCard key={card.key} suit={card.suit} value={card.val} />
+            })}
+*/
   
   const MakeCard = (props) => {
     if (props.suit === "♣︎" || props.suit === "♠︎") {
