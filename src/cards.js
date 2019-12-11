@@ -8,38 +8,50 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-
-
-const makeCardDeck = () => {
+const makeGameBoardDeck = () => {
     const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
     const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Q", "K"];
     let cardDeck = [];
     let card = [];
-    // Added to create 2 decks for the gameboard
+    // code below added to create 2 decks for the gameboard
     if (cardDeck <= 44) {
        
         for (let x = 0; x < suits.length; x++) {
             for (let y = 0; y < values.length; y++) {
-              card = {key: [x,y], suit: suits[x], val: values[y], type: 'card'};
+              card = {key: null, suit: suits[x], val: values[y], type: 'card'};
               cardDeck.push(card);
             }
           };  
     }
+
     let doubleDeck = cardDeck.concat(cardDeck)
-    let freeSpace = {key: null, suit: 'free', val: null, type: 'freeSpace'}
-    let freeSpaceArray = [freeSpace, freeSpace, freeSpace, freeSpace]
-    let doubleDeckWithFreeSpaces = doubleDeck.concat(freeSpaceArray)
-    console.log('The Deck has ' + doubleDeckWithFreeSpaces.length + ' cards')
-    console.log(doubleDeckWithFreeSpaces)
-        return doubleDeckWithFreeSpaces
+    console.log(doubleDeck)
+        return doubleDeck
  }
 
- /* This is the part of the code you need to fix below 
- You need to put the array being returned from Gameboard.render() and place that inside the array you're going
- use for the gameBoard */
+//  const makeTwoCardDecks = () => {
+//     const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
+//     const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+//     let cardDeck = [];
+//     let card = [];
+//     // code below added to create 2 decks for the gameboard
+//     if (cardDeck <= 44) {
+       
+//         for (let x = 0; x < suits.length; x++) {
+//             for (let y = 0; y < values.length; y++) {
+//               card = {key: [x][y], suit: suits[x], val: values[y], type: 'card'};
+//               cardDeck.push(card);
+//             }
+//           };  
+//     }
+//     let doubleDeck = cardDeck.concat(cardDeck)
+//     console.assert(cardDeck.length === 104, "CardDeck does not have 104 cards")
+//     return doubleDeck
+//  }
+
  const createRenderedGameBoard = (cardDeck) => {
 
-    let createCardsHTML = cardDeck.map((card) => {return <MakeCard key={card.key} suit={card.suit} value={card.val}/>} )
+    let createCardsHTML = cardDeck.map((card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
 
     // console.log(createCardsHTML)
     return createCardsHTML
@@ -53,7 +65,7 @@ class GameBoardDeck extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          cardDeck: makeCardDeck()
+          cardDeck: makeGameBoardDeck()
       };
     }
     
@@ -72,7 +84,7 @@ class GameBoardDeck extends React.Component {
       return deck;
     }
 
-    handleShuffleCards = () => {
+    handleShuffleCards = () => { //Changes the state of cardDeck to the shuffled hand of cards
         let shuffledCards = this.shuffleCards(this.state.cardDeck)
         // console.log(shuffledCards)
 
@@ -82,13 +94,7 @@ class GameBoardDeck extends React.Component {
 
     }
     
-    // Jacks have been removed from the Deck because they are not on the gameboard. They will need to be re-added when you create
-    // the deck for the game.
-    
-    
     render() {
-      //consider rendering the gameboard here inside of this return function.
-        console.log(BuildGameBoard(createRenderedGameBoard(this.state.cardDeck)))
       return (  
         <div>
           <button onClick={this.handleShuffleCards}>Shuffle</button>
@@ -99,11 +105,6 @@ class GameBoardDeck extends React.Component {
       );
     }
   };
-/*
-  {this.state.cardDeck.map(function(card) {
-              return <MakeCard key={card.key} suit={card.suit} value={card.val} />
-            })}
-*/
   
   const MakeCard = (props) => {
     if (props.suit === "♣︎" || props.suit === "♠︎") {
@@ -116,49 +117,37 @@ class GameBoardDeck extends React.Component {
 
   };
 
-// const BuildGameBoard = (renderedDeck) => {
-//     console.log(renderedDeck)
-//     // const createRowOfTen
-//     let newRow = []
-//     let grid = []
-    for (let idx = 0; idx < 10; idx++) {
-        if (renderedDeck[idx].key === "0" || "0,9" || "9,0" || "9,9") {
-            newRow.push(<Col><span role="img" aria-label="star">⭐0-0 </span></Col>)
-        } else {newRow.push(<Col>{ renderedDeck[idx] }</Col>)}
-    }
-//     return newRow
-//     }
-
-
-
-
   const BuildGameBoard = (renderedCards) => {
 
     //Keep BuildSingleSpace.
-    const buildSingleSpace = (singleCard) => {
-        return <Col>{singleCard}</Col>
+    const buildSingleSpace = (singleCard, index) => {
+        return <Col key={index}>{singleCard}</Col>
     }
 
-    const buildSingleRow = (singleRowOfCards) => {
-        return <Row>{ singleRowOfCards }</Row>
+    const buildSingleRow = (singleRowOfCards, index) => {
+        return <Row key={index}>{ singleRowOfCards }</Row>
     }
 
+    let free = {key: null, suit: 'free', val: null, type: 'freeSpace'}
+    let freeSpaceCard = MakeCard(free)
+    let freeSpace = buildSingleSpace(freeSpaceCard)
+    console.log(freeSpaceCard)
     const createGrid = (CardArray) => {
         let gridContainer = [[],[],[],[],[],[],[],[],[],[]]
+        console.log(CardArray)
+        let cardCounter = 0
         for (let gridContIdx = 0; gridContIdx < gridContainer.length; gridContIdx++) {
-
-            for (let rowIdx = 0; rowIdx < CardArray.length; rowIdx++) {
-                
-                if (gridContainer[gridContIdx].length < 10) {
-                    gridContainer[gridContIdx].push(CardArray[rowIdx])
-                } else { 
-                    gridContIdx++
-                    gridContainer[gridContIdx].push(CardArray[rowIdx])
-                    console.assert(gridContainer[gridContIdx].length === 10, "All 100 cards have not been pushed to the gridContainer")
+            for (let i = 0; i < 10; i++) {
+                let row = gridContainer[gridContIdx]
+                if ((i === 0 || i === 9) && (gridContIdx === 0 || gridContIdx === 9)) {
+                    row.push(freeSpace)
+                } else {
+                    row.push(CardArray[cardCounter])
+                    cardCounter++;
                 }
             }
         }
-        // Bug --> The last card in each row is not appearing (ex. Q spades for row[0], 10 hearts for row[1], 9 clubs for row[2], etc.)
+        
         console.assert(gridContainer.length === 10, "Make sure all 100 cards have been pushed to the gridContainer")
         return gridContainer
     }
