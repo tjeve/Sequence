@@ -23,7 +23,7 @@ const makeCardDeck = () => {
               card = {key: [x,y], suit: suits[x], val: values[y], type: 'card'};
               cardDeck.push(card);
             }
-          }; 
+          };  
     }
     let doubleDeck = cardDeck.concat(cardDeck)
     let freeSpace = {key: null, suit: 'free', val: null, type: 'freeSpace'}
@@ -121,11 +121,11 @@ class GameBoardDeck extends React.Component {
 //     // const createRowOfTen
 //     let newRow = []
 //     let grid = []
-//     for (let idx = 0; idx < 10; idx++) {
-//         if (renderedDeck[idx].key === "0" || "0,9" || "9,0" || "9,9") {
-//             newRow.push(<Col><span role="img" aria-label="star">⭐0-0 </span></Col>)
-//         } else {newRow.push(<Col>{ renderedDeck[idx] }</Col>)}
-//     }
+    for (let idx = 0; idx < 10; idx++) {
+        if (renderedDeck[idx].key === "0" || "0,9" || "9,0" || "9,9") {
+            newRow.push(<Col><span role="img" aria-label="star">⭐0-0 </span></Col>)
+        } else {newRow.push(<Col>{ renderedDeck[idx] }</Col>)}
+    }
 //     return newRow
 //     }
 
@@ -138,7 +138,6 @@ class GameBoardDeck extends React.Component {
     const buildSingleSpace = (singleCard) => {
         return <Col>{singleCard}</Col>
     }
-    let createSingleRenderedCards = renderedCards.map(buildSingleSpace)
 
     const buildSingleRow = (singleRowOfCards) => {
         return <Row>{ singleRowOfCards }</Row>
@@ -149,15 +148,18 @@ class GameBoardDeck extends React.Component {
         for (let gridContIdx = 0; gridContIdx < gridContainer.length; gridContIdx++) {
 
             for (let rowIdx = 0; rowIdx < CardArray.length; rowIdx++) {
+                
                 if (gridContainer[gridContIdx].length < 10) {
                     gridContainer[gridContIdx].push(CardArray[rowIdx])
                 } else { 
-                    gridContIdx++ 
+                    gridContIdx++
+                    gridContainer[gridContIdx].push(CardArray[rowIdx])
+                    console.assert(gridContainer[gridContIdx].length === 10, "All 100 cards have not been pushed to the gridContainer")
                 }
             }
         }
-        //Bug --> The last card in each row is not appearing (ex. Q spades for row[0], 10 hearts for row[1], 9 clubs for row[2], etc.)
-        console.log(gridContainer[9].length)
+        // Bug --> The last card in each row is not appearing (ex. Q spades for row[0], 10 hearts for row[1], 9 clubs for row[2], etc.)
+        console.assert(gridContainer.length === 10, "Make sure all 100 cards have been pushed to the gridContainer")
         return gridContainer
     }
     let grid = createGrid(renderedCards.map(buildSingleSpace))
