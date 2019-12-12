@@ -25,7 +25,7 @@ const makeGameBoardDeck = () => {
     }
 
     let doubleDeck = cardDeck.concat(cardDeck)
-    console.log(doubleDeck)
+    console.assert(doubleDeck.length === 96, "DoubleDeck does not have 96 cards")
         return doubleDeck
  }
 
@@ -93,7 +93,10 @@ class GameBoardDeck extends React.Component {
         })
 
     }
-    
+    // handleGameBoard = () => {
+    //     let shuffledGameBoard = this.BuildGameBoard(createRenderedGameBoard(this.state.cardDeck))
+    //     console.log(shuffledGameBoard)
+    // }
     render() {
       return (  
         <div>
@@ -119,40 +122,42 @@ class GameBoardDeck extends React.Component {
 
   const BuildGameBoard = (renderedCards) => {
 
-    //Keep BuildSingleSpace.
-    const buildSingleSpace = (singleCard, index) => {
+    const makeCol = (singleCard, index) => {
         return <Col key={index}>{singleCard}</Col>
     }
 
-    const buildSingleRow = (singleRowOfCards, index) => {
+    const makeRow = (singleRowOfCards, index) => {
         return <Row key={index}>{ singleRowOfCards }</Row>
     }
 
-    let free = {key: null, suit: 'free', val: null, type: 'freeSpace'}
-    let freeSpaceCard = MakeCard(free)
-    let freeSpace = buildSingleSpace(freeSpaceCard)
-    console.log(freeSpaceCard)
+    let freeSpaceInfo = {key: null, suit: 'FREE SPACE ⭐', val: null, type: 'freeSpace'}
+    let freeSpaceCard = MakeCard(freeSpaceInfo)
+    let freeSpace = makeCol(freeSpaceCard)
+
     const createGrid = (CardArray) => {
         let gridContainer = [[],[],[],[],[],[],[],[],[],[]]
-        console.log(CardArray)
-        let cardCounter = 0
-        for (let gridContIdx = 0; gridContIdx < gridContainer.length; gridContIdx++) {
-            for (let i = 0; i < 10; i++) {
-                let row = gridContainer[gridContIdx]
-                if ((i === 0 || i === 9) && (gridContIdx === 0 || gridContIdx === 9)) {
-                    row.push(freeSpace)
-                } else {
-                    row.push(CardArray[cardCounter])
-                    cardCounter++;
+        
+        let cardCounter = 0 // counts the number of cards added to the gameboard array
+        for (let rowIdx = 0; rowIdx < gridContainer.length; rowIdx++) { // for every row...
+            for (let spaceIdx = 0; spaceIdx < 10; spaceIdx++) { // in every space...
+                let row = gridContainer[rowIdx] // define a row as this...
+                // check the grid location and if the position is (0,0), (0,9), (9,0), or (9,9)...
+                if ((spaceIdx === 0 || spaceIdx === 9) && (rowIdx === 0 || rowIdx === 9)) {
+                    row.push(freeSpace) // push a freespace to that location
+                } else {    // otherwise...
+                    row.push(CardArray[cardCounter]) // push a card from the cardArray (with length of 96)
+                    cardCounter++;  // then increase the cardCounter to move to the next card of the cardArray
                 }
+                console.assert(gridContainer.length === 10, "Grid container should contain 10 rows.")
             }
         }
         
         console.assert(gridContainer.length === 10, "Make sure all 100 cards have been pushed to the gridContainer")
         return gridContainer
     }
-    let grid = createGrid(renderedCards.map(buildSingleSpace))
-    let renderRows = grid.map(buildSingleRow)
+
+    let grid = createGrid(renderedCards.map(makeCol))
+    let renderRows = grid.map(makeRow)
     let renderGrid = <Container>{ renderRows }</Container>
 
     return renderGrid
