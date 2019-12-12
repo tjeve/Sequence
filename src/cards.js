@@ -100,10 +100,10 @@ class GameBoardDeck extends React.Component {
     render() {
       return (  
         <div>
-          <button onClick={this.handleShuffleCards}>Shuffle</button>
           <div className="deck">
-           {BuildGameBoard(createRenderedGameBoard(this.state.cardDeck))}
+           {BuildGameBoard(this.shuffleCards(createRenderedGameBoard(this.state.cardDeck)))}
           </div>
+          {/* <button onClick={this.handleShuffleCards}>Shuffle Game Board</button> */}
         </div>
       );
     }
@@ -162,6 +162,12 @@ class GameBoardDeck extends React.Component {
 
     return renderGrid
   }
+
+// class Hand extends React.Component {
+//     constructor (props) {
+//         super (props); // I don't know what this does. Check out React Docs
+//     }
+// }
 
 
 export default GameBoardDeck
