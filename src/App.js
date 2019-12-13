@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Board } from './board.js';
-// import deck from './cards.js'
+import { Hand } from './cards.js'
 
 function App() {
   return (
@@ -15,10 +15,11 @@ function App() {
       </header>
       <div className='board-container'>
         <div className='board'>
-          
           <Board />
         </div>
-
+      <div className='Hands'>
+        <Hand />
+      </div>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const makeGameBoardDeck = () => {
                 };
               cardDeck.push(card);
             }
-          };  
+          }; 
     }
     
     let doubleDeck = cardDeck.concat(cardDeck)
@@ -34,43 +34,82 @@ const makeGameBoardDeck = () => {
         return doubleDeck
  }
 
-//  const makeTwoCardDecks = () => {
-//     const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
-//     const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-//     let cardDeck = [];
-//     let card = [];
-//     // code below added to create 2 decks for the gameboard
-//     if (cardDeck <= 44) {
-       
-//         for (let x = 0; x < suits.length; x++) {
-//             for (let y = 0; y < values.length; y++) {
-//               card = {key: [x][y], suit: suits[x], val: values[y], type: 'card'};
-//               cardDeck.push(card);
-//             }
-//           };  
-//     }
-//     let doubleDeck = cardDeck.concat(cardDeck)
-//     console.assert(cardDeck.length === 104, "CardDeck does not have 104 cards")
-//     return doubleDeck
-//  }
+const createRenderedGameBoard = (cardDeck) => {
 
- const createRenderedGameBoard = (cardDeck) => {
+  let createCardsHTML = cardDeck.map((card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
 
-    let createCardsHTML = cardDeck.map((card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
+  return createCardsHTML 
+}
 
-    // console.log(createCardsHTML)
-    return createCardsHTML
+// const createRenderedStack = (cardDeck) => {
+//   let createCardStackHTML = cardDeck 
+// }
+// const MakeTwoCardDecks = () => {
+//   const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
+//   const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+//   let cardDeck = [];
+//   let card = [];
+//   // code below added to create 2 decks for the gameboard
+//   if (cardDeck <= 44) {
+     
+//       for (let x = 0; x < suits.length; x++) {
+//           for (let y = 0; y < values.length; y++) {
+//             card = {key: [x][y], suit: suits[x], val: values[y], type: 'card'};
+//             cardDeck.push(card);
+//           }
+//         };  
+//   }
+//   let doubleDeck = cardDeck.concat(cardDeck)
+//   console.assert(doubleDeck.length === 104, "CardDeck does not have 104 cards")
+//   return doubleDeck
+// }
+//**************************************************************************************************************************
+// const BuildStack = () => {
+  
+// }
+let blankCard = () => {
+  return (
+  <div className="player-1">
+    <div className="card card-black">
+      <div className="card-tl">
+        <div className="card-value">
+        </div>
+        <div className="card-suit">
+        </div>
+      </div>
+        <div className="card-br">
+          <div className="card-value">
+          </div>
+          <div className="card-suit">
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+//**************************************************************************************************************************
+class Hand extends React.Component {
+    constructor (props) {
+        super (props);
+        this.state = {
+            cardDeck: this
+        }
+    }
+    render() {
+        return (
+        <div>
+          <button onClick={this.insertFunctionHere}>{ blankCard() }</button>
+        </div>
+        )
+    }
 
- }
-
-
-/* This is the part of the code you need to fix above */
-
-class GameBoardDeck extends React.Component {
+}
+//**************************************************************************************************************************
+class GameBoard extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          cardDeck: this.shuffleCards(makeGameBoardDeck()),
+          gameBoardDeck: this.shuffleCards(makeGameBoardDeck()),
       };
     }
     
@@ -89,11 +128,11 @@ class GameBoardDeck extends React.Component {
       return deck;
     }
 
-    handleShuffleCards = () => { //Changes the state of cardDeck to the shuffled hand of cards
-        let shuffledCards = this.shuffleCards(this.state.cardDeck)
+    handleShuffleCards = () => { //Changes the state of gameBoardDeck to the shuffled hand of cards
+        let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
 
         this.setState({
-            cardDeck: shuffledCards
+            gameBoardDeck: shuffledCards
         })
 
     }
@@ -101,9 +140,12 @@ class GameBoardDeck extends React.Component {
     render() {
       return (  
         <div>
-          <div className="deck">
-           {BuildGameBoard(this.shuffleCards(createRenderedGameBoard(this.state.cardDeck)))}
-          </div>
+            <div>
+               
+            </div>
+            <div className="deck">
+                {BuildGameBoard(this.shuffleCards(createRenderedGameBoard(this.state.gameBoardDeck)))}
+            </div>
           {/* <button onClick={this.handleShuffleCards}>Shuffle Game Board</button> */}
         </div>
       );
@@ -144,7 +186,7 @@ class GameBoardDeck extends React.Component {
     // let createCardsHTML = cardDeck.map((card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
     let freeSpace = freeSpaceCard.map((card, index) => <Col key={index + 100}>{card}</Col>)
 
-    const createGrid = (CardArray, index) => {
+    const createGrid = (CardArray) => {
         let gridContainer = [[],[],[],[],[],[],[],[],[],[]]
         let freeSpaceCounter = 0
         let cardCounter = 0 // counts the number of cards added to the gameboard array
@@ -154,7 +196,7 @@ class GameBoardDeck extends React.Component {
                 // check the grid location and if the position is (0,0), (0,9), (9,0), or (9,9)...
                 if ((spaceIdx === 0 || spaceIdx === 9) && (rowIdx === 0 || rowIdx === 9)) {
                     row.push(freeSpace[freeSpaceCounter]) // push a freespace to that location
-                    freeSpaceCounter++
+                    freeSpaceCounter++ // and increment the freeSpaceCounter
                 } else {    // otherwise...
                     row.push(CardArray[cardCounter]) // push a card from the cardArray (with length of 96)
                     cardCounter++;  // then increase the cardCounter to move to the next card of the cardArray
@@ -162,7 +204,7 @@ class GameBoardDeck extends React.Component {
                 console.assert(gridContainer.length === 10, "Grid container should contain 10 rows.")
             }
         }
-        console.log(gridContainer)
+        
         console.assert(gridContainer.length === 10, "Make sure all 100 cards have been pushed to the gridContainer")
         return gridContainer
     }
@@ -174,12 +216,6 @@ class GameBoardDeck extends React.Component {
     return renderGrid
   }
 
-// class Hand extends React.Component {
-//     constructor (props) {
-//         super (props); // I don't know what this does. Check out React Docs
-//     }
-// }
-
-
-export default GameBoardDeck
+export default GameBoard
+export { Hand }
 
