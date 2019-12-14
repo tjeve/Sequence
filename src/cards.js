@@ -44,25 +44,26 @@ const createRenderedGameBoard = (cardDeck) => {
 // const createRenderedStack = (cardDeck) => {
 //   let createCardStackHTML = cardDeck 
 // }
-// const MakeTwoCardDecks = () => {
-//   const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
-//   const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-//   let cardDeck = [];
-//   let card = [];
-//   // code below added to create 2 decks for the gameboard
-//   if (cardDeck <= 44) {
+
+const MakeTwoCardDecks = () => {
+  const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
+  const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+  let cardDeck = [];
+  let card = [];
+  // code below added to create 2 decks for the gameboard
+  if (cardDeck <= 44) {
      
-//       for (let x = 0; x < suits.length; x++) {
-//           for (let y = 0; y < values.length; y++) {
-//             card = {key: [x][y], suit: suits[x], val: values[y], type: 'card'};
-//             cardDeck.push(card);
-//           }
-//         };  
-//   }
-//   let doubleDeck = cardDeck.concat(cardDeck)
-//   console.assert(doubleDeck.length === 104, "CardDeck does not have 104 cards")
-//   return doubleDeck
-// }
+      for (let x = 0; x < suits.length; x++) {
+          for (let y = 0; y < values.length; y++) {
+            card = {key: [x][y], suit: suits[x], val: values[y], type: 'card'};
+            cardDeck.push(card);
+          }
+        };  
+  }
+  let doubleDeck = cardDeck.concat(cardDeck)
+  console.assert(doubleDeck.length === 104, "CardDeck does not have 104 cards")
+  return doubleDeck
+}
 //**************************************************************************************************************************
 // const BuildStack = () => {
   
@@ -87,14 +88,40 @@ let blankCard = () => {
     </div>
   )
 }
+console.log(MakeTwoCardDecks())
 //**************************************************************************************************************************
 class Hand extends React.Component {
     constructor (props) {
         super (props);
         this.state = {
-            cardDeck: this
+            cardDeck: this.shuffleCards(makeGameBoardDeck()),
         }
     }
+    
+    shuffleCards(deck) {
+    //   console.log('shuffling deck');
+      let counter = deck.length;
+      let t;
+      let i;
+      
+      while (counter) {
+        i = Math.floor(Math.random() * counter-- );
+        t = deck[counter];
+        deck[counter] = deck[i];
+        deck[i] = t;
+      }
+      return deck;
+    }
+
+    handleShuffleCards = () => { //Changes the state of gameBoardDeck to the shuffled hand of cards
+      let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
+
+      this.setState({
+          gameBoardDeck: shuffledCards
+      })
+
+  }
+
     render() {
         return (
         <div>
@@ -114,7 +141,7 @@ class GameBoard extends React.Component {
     }
     
     shuffleCards(deck) {
-    //   console.log('shuffling deck');
+      // console.log('shuffling deck');
       let counter = deck.length;
       let t;
       let i;
