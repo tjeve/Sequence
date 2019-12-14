@@ -25,7 +25,14 @@ $font-stack: Helvetica, sans-serif;
 .card-black {
   color: black;
 }
-
+.card-blank {
+  background-image: url(./img/sequence-back.png);
+  background-size: 48px 80px;
+  background-color: navy;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
 .card-red {
   color: red;
 }

@@ -2,14 +2,16 @@ import React from 'react';
 import './App.css';
 import { Board } from './board.js';
 import { Hand } from './cards.js'
+import SequenceNavbar from './navbar';
 
 function App() {
   return (
     <div className="App">
+        <SequenceNavbar />
       <header className="App-header">
         <h1>
           <a className="info-link" href="https://en.wikipedia.org/wiki/Sequence_(game)">
-            Sequence
+            Play Sequence
           </a>
         </h1>
       </header>
@@ -17,7 +19,7 @@ function App() {
         <div className='board'>
           <Board />
         </div>
-      <div className='Hands'>
+      <div className='Hand'>
         <Hand />
       </div>
       </div>

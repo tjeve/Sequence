@@ -71,30 +71,28 @@ const MakeTwoCardDecks = () => {
 let blankCard = () => {
   return (
   <div className="player-1">
-    <div className="card card-black">
-      <div className="card-tl">
-        <div className="card-value">
-        </div>
-        <div className="card-suit">
-        </div>
-      </div>
-        <div className="card-br">
-          <div className="card-value">
-          </div>
-          <div className="card-suit">
-          </div>
-        </div>
-      </div>
+    <div className="card card-blank">
+    {/* <span role='img' aria-label='string'>⭐</span> */}
     </div>
+  </div>
   )
 }
-console.log(MakeTwoCardDecks())
+// console.log(MakeTwoCardDecks())
+
+// let currentHand = []
+// let drawFirstHand = () => {
+//   let deck = MakeTwoCardDecks()
+//   let hand = deck.slice(0, 5)
+//   currentHand.push(hand)
+// }
+// drawFirstHand()
+// console.log(currentHand)
 //**************************************************************************************************************************
 class Hand extends React.Component {
     constructor (props) {
         super (props);
         this.state = {
-            cardDeck: this.shuffleCards(makeGameBoardDeck()),
+            currentHand: []
         }
     }
     
@@ -113,6 +111,12 @@ class Hand extends React.Component {
       return deck;
     }
 
+    drawFirstHand = () => {
+      let deck = MakeTwoCardDecks()
+      let hand = deck.slice(0, 5)
+      this.state.currentHand.push(hand)
+    }
+
     handleShuffleCards = () => { //Changes the state of gameBoardDeck to the shuffled hand of cards
       let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
 
@@ -121,11 +125,11 @@ class Hand extends React.Component {
       })
 
   }
-
     render() {
+      console.log(this.state.currentHand)
         return (
         <div>
-          <button onClick={this.insertFunctionHere}>{ blankCard() }</button>
+          <button onClick={this.drawFirstHand()}>{ blankCard() }</button>
         </div>
         )
     }
