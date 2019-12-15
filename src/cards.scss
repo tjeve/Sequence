@@ -22,12 +22,23 @@ $font-stack: Helvetica, sans-serif;
   padding: 4px;
 }
 
+.big-card {
+  display: flex;
+  width: 96px;
+  height: 160px;
+  background-color: #FFF;
+  border-radius: $base-size;
+  border: 2px solid black;
+  margin: 4px;
+  padding: 4px;
+}
+
 .card-black {
   color: black;
 }
 .card-blank {
   background-image: url(./img/sequence-back.png);
-  background-size: 48px 80px;
+  background-size: 96px 160px;
   background-color: navy;
   display: flex;
   justify-content: center;

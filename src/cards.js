@@ -45,7 +45,7 @@ const createRenderedGameBoard = (cardDeck) => {
 //   let createCardStackHTML = cardDeck 
 // }
 
-const MakeTwoCardDecks = () => {
+const TwoDecks = () => {
   const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
   const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
   let cardDeck = [];
@@ -71,28 +71,40 @@ const MakeTwoCardDecks = () => {
 let blankCard = () => {
   return (
   <div className="player-1">
-    <div className="card card-blank">
+    <div className="big-card card-blank">
     {/* <span role='img' aria-label='string'>⭐</span> */}
     </div>
   </div>
   )
 }
-// console.log(MakeTwoCardDecks())
+// console.log(TwoDecks())
 
-// let currentHand = []
-// let drawFirstHand = () => {
-//   let deck = MakeTwoCardDecks()
-//   let hand = deck.slice(0, 5)
-//   currentHand.push(hand)
+// let currentHand = [] // this.state.currentHand
+// let currentDeck = [] //this.state
+let drawCard = (cards) => {
+  let hand = cards.slice(0, 5)
+  return hand
+}
+// let returnDeck = (cards) => {
+//   let deck = cards.slice(5, cards.length)
+//   currentDeck.push(deck)
+//   return deck
 // }
-// drawFirstHand()
-// console.log(currentHand)
+// let handleDrawCards = (deck) => {
+//   currentHand.push(drawCard(deck)) //set state of currentHand,
+//   currentDeck.push(returnDeck(deck)) //set state of currentDeck
+//   return 
+// }
+// console.log(handleDrawCards(TwoDecks()))
+
 //**************************************************************************************************************************
 class Hand extends React.Component {
     constructor (props) {
         super (props);
         this.state = {
-            currentHand: []
+            currentHand: [],
+            // initialDeck: TwoDecks(),
+            currentDeck: TwoDecks()
         }
     }
     
@@ -110,13 +122,18 @@ class Hand extends React.Component {
       }
       return deck;
     }
-
-    drawFirstHand = () => {
-      let deck = MakeTwoCardDecks()
-      let hand = deck.slice(0, 5)
-      this.state.currentHand.push(hand)
+    // drawCard(cards) {
+    
+    //   let slicedCards = cards.slice(0, 5)
+       
+    //   return slicedCards
+    // }
+    handleDrawnCard = () => {
+      let cardsInHand = drawCard(this.state.currentDeck)
+      console.log("clicked")
+      this.setState({currentDeck: cardsInHand})
+      console.log(this.state.currentDeck)
     }
-
     handleShuffleCards = () => { //Changes the state of gameBoardDeck to the shuffled hand of cards
       let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
 
@@ -126,10 +143,12 @@ class Hand extends React.Component {
 
   }
     render() {
-      console.log(this.state.currentHand)
+      // console.log(this.state.initialDeck)
+      // console.log("The currentDeck array has " + this.state.currentDeck.length + " cards", drawCard(this.state.initialDeck))
+      // console.log(this.state.restOfDeck)
         return (
         <div>
-          <button onClick={this.drawFirstHand()}>{ blankCard() }</button>
+          <button onClick={this.handleDrawnCard}>{ blankCard() }</button>
         </div>
         )
     }
@@ -182,7 +201,7 @@ class GameBoard extends React.Component {
       );
     }
   };
-  
+//**************************************************************************************************************************
   const MakeCard = (props) => {
     if (props.suit === "♣︎" || props.suit === "♠︎") {
       return (<div className="card card-black"><div className="card-tl"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div><div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div></div>);
