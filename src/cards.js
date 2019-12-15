@@ -85,11 +85,10 @@ let drawCard = (cards) => {
   let hand = cards.slice(0, 5)
   return hand
 }
-// let returnDeck = (cards) => {
-//   let deck = cards.slice(5, cards.length)
-//   currentDeck.push(deck)
-//   return deck
-// }
+let returnDeck = (cards) => {
+  let deck = cards.slice(5, cards.length)
+  return deck
+}
 // let handleDrawCards = (deck) => {
 //   currentHand.push(drawCard(deck)) //set state of currentHand,
 //   currentDeck.push(returnDeck(deck)) //set state of currentDeck
@@ -122,17 +121,16 @@ class Hand extends React.Component {
       }
       return deck;
     }
-    // drawCard(cards) {
     
-    //   let slicedCards = cards.slice(0, 5)
-       
-    //   return slicedCards
-    // }
     handleDrawnCard = () => {
       let cardsInHand = drawCard(this.state.currentDeck)
-      console.log("clicked")
-      this.setState({currentDeck: cardsInHand})
-      console.log(this.state.currentDeck)
+      let restOfDeck = returnDeck(this.state.currentDeck)
+      console.log(cardsInHand)
+
+      this.setState({
+        currentHand: cardsInHand,
+        currentDeck: restOfDeck
+      })
     }
     handleShuffleCards = () => { //Changes the state of gameBoardDeck to the shuffled hand of cards
       let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
@@ -140,11 +138,11 @@ class Hand extends React.Component {
       this.setState({
           gameBoardDeck: shuffledCards
       })
-
   }
     render() {
       // console.log(this.state.initialDeck)
-      // console.log("The currentDeck array has " + this.state.currentDeck.length + " cards", drawCard(this.state.initialDeck))
+      console.log("The currentHand array has " + this.state.currentHand.length + " cards")
+      console.log("The currentDeck array has " + this.state.currentDeck.length + " cards")
       // console.log(this.state.restOfDeck)
         return (
         <div>
