@@ -80,3 +80,26 @@ input[type=button] {
   color: white;
   text-transform: uppercase;
 }
+.hand-deck-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+.hand {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.hand-buttons {
+  // display: flex;
+  // justify-content: flex-start;
+  // flex-direction: row;
+  margin: 4px;
+}
+.deck-button-container {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.deck-button {
+  background-color: cornflowerblue
+}

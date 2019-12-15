@@ -34,9 +34,9 @@ const makeGameBoardDeck = () => {
         return doubleDeck
  }
 
-const createRenderedGameBoard = (cardDeck) => {
+const createHTMLCardsFromDeck = (cardDeck) => {
 
-  let createCardsHTML = cardDeck.map((card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
+  let createCardsHTML = cardDeck.map( (card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
 
   return createCardsHTML 
 }
@@ -65,9 +65,8 @@ const TwoDecks = () => {
   return doubleDeck
 }
 //**************************************************************************************************************************
-// const BuildStack = () => {
-  
-// }
+// Hand Logic //
+
 let blankCard = () => {
   return (
   <div className="player-1">
@@ -77,33 +76,44 @@ let blankCard = () => {
   </div>
   )
 }
-// console.log(TwoDecks())
 
-// let currentHand = [] // this.state.currentHand
-// let currentDeck = [] //this.state
-let drawCard = (cards) => {
+let initialDraw = (cards) => {
   let hand = cards.slice(0, 5)
   return hand
 }
-let returnDeck = (cards) => {
+let initialReturnDeck = (cards) => {
   let deck = cards.slice(5, cards.length)
   return deck
 }
-// let handleDrawCards = (deck) => {
-//   currentHand.push(drawCard(deck)) //set state of currentHand,
-//   currentDeck.push(returnDeck(deck)) //set state of currentDeck
-//   return 
-// }
-// console.log(handleDrawCards(TwoDecks()))
+let drawCard = (cards) => {
+  let hand = cards.slice(0, 1)
+  return hand
+}
+let returnDeck = (cards) => {
+  let deck = cards.slice(1, cards.length)
+  return deck
+}
+let makeButton = (cardsHTML, index) => {
+  let HandButtons = <button onClick={null} key={index} className="hand-buttons">{ cardsHTML }</button>
+  return HandButtons
+}
+let formatHand = (deck) => {
+  let cardDeck = deck.map( (card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
+  let cols = cardDeck.map(makeCol)
+  let buttons = cols.map(makeButton)
+  let rowOfCards = makeRow(buttons)
+  return rowOfCards
+}
+// let handleCardButton = (card) => {
 
+// }
 //**************************************************************************************************************************
 class Hand extends React.Component {
     constructor (props) {
         super (props);
         this.state = {
             currentHand: [],
-            // initialDeck: TwoDecks(),
-            currentDeck: TwoDecks()
+            currentDeck: this.shuffleCards(TwoDecks())
         }
     }
     
@@ -121,32 +131,41 @@ class Hand extends React.Component {
       }
       return deck;
     }
-    
     handleDrawnCard = () => {
-      let cardsInHand = drawCard(this.state.currentDeck)
-      let restOfDeck = returnDeck(this.state.currentDeck)
-      console.log(cardsInHand)
+      let oldHand = this.state.currentHand
+      let oldDeck = this.state.currentDeck
+      console.log(oldHand)
+      let newCards
+      let restOfDeck
 
+      if (oldHand.length === 0 && oldDeck.length === 104) {
+        newCards = initialDraw(this.state.currentDeck)
+        restOfDeck = initialReturnDeck(this.state.currentDeck)
+      } else {
+        newCards = drawCard(this.state.currentDeck)
+        restOfDeck = returnDeck(this.state.currentDeck)
+      }
+  
       this.setState({
-        currentHand: cardsInHand,
-        currentDeck: restOfDeck
+        currentHand: oldHand.concat(newCards),
+        currentDeck: this.shuffleCards(restOfDeck)
       })
     }
-    handleShuffleCards = () => { //Changes the state of gameBoardDeck to the shuffled hand of cards
-      let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
-
-      this.setState({
-          gameBoardDeck: shuffledCards
-      })
-  }
+    handleHand(deck) {
+      let cols = makeCol(deck)
+      let buttons = makeButton(cols)
+      return buttons
+    }
     render() {
-      // console.log(this.state.initialDeck)
       console.log("The currentHand array has " + this.state.currentHand.length + " cards")
       console.log("The currentDeck array has " + this.state.currentDeck.length + " cards")
-      // console.log(this.state.restOfDeck)
+
         return (
-        <div>
-          <button onClick={this.handleDrawnCard}>{ blankCard() }</button>
+        <div className="hand-deck-container">
+          <div className="hand">{ formatHand(this.state.currentHand) }</div>
+          <div className='deck-button-container'>
+            <button className="deck-button" onClick={this.handleDrawnCard}>{ blankCard() }</button>
+          </div>
         </div>
         )
     }
@@ -176,14 +195,6 @@ class GameBoard extends React.Component {
       return deck;
     }
 
-    handleShuffleCards = () => { //Changes the state of gameBoardDeck to the shuffled hand of cards
-        let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
-
-        this.setState({
-            gameBoardDeck: shuffledCards
-        })
-
-    }
 
     render() {
       return (  
@@ -192,7 +203,7 @@ class GameBoard extends React.Component {
                
             </div>
             <div className="deck">
-                {BuildGameBoard(this.shuffleCards(createRenderedGameBoard(this.state.gameBoardDeck)))}
+                {BuildGameBoard(this.shuffleCards(createHTMLCardsFromDeck(this.state.gameBoardDeck)))}
             </div>
           {/* <button onClick={this.handleShuffleCards}>Shuffle Game Board</button> */}
         </div>
@@ -211,15 +222,15 @@ class GameBoard extends React.Component {
 
   };
 
+  const makeCol = (singleCard, index) => {
+    return <Col key={index}>{singleCard}</Col>
+  }
+
+  const makeRow = (singleRowOfCards, index) => {
+      return <Row key={index}>{ singleRowOfCards }</Row>
+  }
+
   const BuildGameBoard = (renderedCards) => {
-
-    const makeCol = (singleCard, index) => {
-        return <Col key={index}>{singleCard}</Col>
-    }
-
-    const makeRow = (singleRowOfCards, index) => {
-        return <Row key={index}>{ singleRowOfCards }</Row>
-    }
 
     let freeSpaceInfo = [
         {key: null, suit: 'FREE SPACE ⭐', val: null, type: 'freeSpace'},
