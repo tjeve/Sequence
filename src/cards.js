@@ -162,7 +162,7 @@ class Hand extends React.Component {
 
         return (
         <div className="hand-deck-container">
-          <div className="hand">{ formatHand(this.state.currentHand) }</div>
+          <div className="hand">{ <Container>{formatHand(this.state.currentHand)}</Container> }</div>
           <div className='deck-button-container'>
             <button className="deck-button" onClick={this.handleDrawnCard}>{ blankCard() }</button>
           </div>
@@ -277,4 +277,3 @@ class GameBoard extends React.Component {
 
 export default GameBoard
 export { Hand }
-
