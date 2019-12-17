@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Board } from './board.js';
-import { Hand } from './cards.js'
+import  Hand  from './hand.jsx'
 import SequenceNavbar from './navbar';
 
 function App() {

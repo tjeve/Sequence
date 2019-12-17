@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+// import Image from 'react-bootstrap/Image'
 
 class SequenceNavbar extends React.Component {
     state = {  }
@@ -8,7 +9,7 @@ class SequenceNavbar extends React.Component {
     render() { 
         return ( 
             <Navbar bg="primary" variant="dark" expand="lg">
-                <img srs='./img/sequence-back.png'></img>
+                {/* <Image src='./img/sequence-back.png/20x20' thumbnail/> */}
                 <Navbar.Brand href="#home">SEQUENCE</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
