@@ -1,6 +1,6 @@
 import React from 'react';
 import './cards.scss';
-import { MakeCard, makeCol, makeRow } from './cards.js';
+import { MakeCard, makeCol, makeRow } from './gameBoard.jsx';
 import './board.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -31,7 +31,7 @@ const TwoDecks = () => {
 //**************************************************************************************************************************
 // Hand Logic //
 
-let blankCard = () => {
+const blankCard = () => {
   return (
   <div className="player-1">
     <div className="big-card card-blank">
@@ -40,31 +40,31 @@ let blankCard = () => {
   )
 }
 
-let initialDraw = (cards) => {
-  let hand = cards.slice(0, 5)
+const initialDraw = (cards) => {
+  const hand = cards.slice(0, 5)
   return hand
 }
-let initialReturnDeck = (cards) => {
-  let deck = cards.slice(5, cards.length)
+const initialReturnDeck = (cards) => {
+  const deck = cards.slice(5, cards.length)
   return deck
 }
-let drawCard = (cards) => {
-  let hand = cards.slice(0, 1)
+const drawCard = (cards) => {
+  const hand = cards.slice(0, 1)
   return hand
 }
-let returnDeck = (cards) => {
-  let deck = cards.slice(1, cards.length)
+const returnDeck = (cards) => {
+  const deck = cards.slice(1, cards.length)
   return deck
 }
-let makeButton = (cardsHTML, index) => {
-  let HandButtons = <button onClick={null} key={index} className="hand-buttons">{ cardsHTML }</button>
+const makeButton = (cardsHTML, index) => {
+  const HandButtons = <button onClick={null} key={index} className="hand-buttons">{ cardsHTML }</button>
   return HandButtons
 }
-let formatHand = (deck) => {
-  let cardDeck = deck.map( (card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
-  let cols = cardDeck.map(makeCol) // in cards.js
-  let buttons = cols.map(makeButton) //in cards.js
-  let rowOfCards = makeRow(buttons) //in cards.js
+const formatHand = (deck) => {
+  const cardDeck = deck.map( (card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
+  const cols = cardDeck.map(makeCol) // in cards.js
+  const buttons = cols.map(makeButton) //in cards.js
+  const rowOfCards = makeRow(buttons) //in cards.js
   return rowOfCards
 }
 

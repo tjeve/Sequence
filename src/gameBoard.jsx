@@ -1,7 +1,5 @@
 import React from 'react';
 import './cards.scss';
-// import { create } from 'domain';
-//From board.js
 import './board.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -45,9 +43,9 @@ const createHTMLCardsFromDeck = (cardDeck) => {
 }
 const MakeCard = (props) => {
   if (props.suit === "♣︎" || props.suit === "♠︎") {
-    return (<div className="card card-black"><div className="card-tl"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div><div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div></div>);
+    return (<div className="card card-black selectable"><div className="card-tl"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div><div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div></div>);
   } else {
-    return (<div className="card card-red"><div className="card-tl"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div>
+    return (<div className="card card-red selectable"><div className="card-tl"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div>
       <div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div>
       </div>);
   }
@@ -130,8 +128,13 @@ class GameBoard extends React.Component {
       }
       return deck;
     }
+    handleShuffleCards = () => { //Changes the state of cardDeck to the shuffled hand of cards
+      let shuffledCards = this.shuffleCards(this.state.gameBoardDeck)
 
-
+      this.setState({ gameBoardDeck: shuffledCards})
+      return shuffledCards
+      // console.log(shuffledCards)	        
+    }
     render() {
       return (  
         <div>
@@ -141,7 +144,8 @@ class GameBoard extends React.Component {
             <div className="deck">
                 {BuildGameBoard(this.shuffleCards(createHTMLCardsFromDeck(this.state.gameBoardDeck)))}
             </div>
-          {/* <button onClick={this.handleShuffleCards}>Shuffle Game Board</button> */}
+            
+          <button className='shuffle-button' onClick={this.handleShuffleCards}>Shuffle Game Board</button>
         </div>
       );
     }

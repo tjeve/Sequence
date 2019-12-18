@@ -81,6 +81,8 @@ input[type=button] {
   text-transform: uppercase;
 }
 .hand-deck-container {
+  padding: 20px;
+  background-color: #007bff;
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -94,6 +96,7 @@ input[type=button] {
   // display: flex;
   // justify-content: flex-start;
   // flex-direction: row;
+  background-color: yellow;
   margin: 4px;
 }
 .deck-button-container {
@@ -101,5 +104,10 @@ input[type=button] {
   padding-right: 100px;
 }
 .deck-button {
-  background-color: cornflowerblue
+  background-color: yellow;
+}
+.shuffle-button {
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: white;
 }

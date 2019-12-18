@@ -18,6 +18,7 @@ class SequenceNavbar extends React.Component {
                         <Nav.Link href="https://www.youtube.com/watch?v=RK8defbdNEA">Tutorial</Nav.Link>
                         <Nav.Link href="https://en.wikipedia.org/wiki/Sequence_(game)">About</Nav.Link>
                         <Nav.Link href="https://www.amazon.com/Jax-8002-Sequence-Game/dp/B00000IVAK">Buy</Nav.Link>
+                        <Nav.Link href="https://github.com/tjeve/sequence">Github</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
