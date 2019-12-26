@@ -39,7 +39,10 @@ const createHTMLCardsFromDeck = (cardDeck) => {
 
   let createCardsHTML = cardDeck.map( (card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
 
-  return createCardsHTML 
+  let createCardButtons = createCardsHTML.map(makeButton)
+
+  // return createCardsHTML 
+  return createCardButtons
 }
 const MakeCard = (props) => {
   if (props.suit === "♣︎" || props.suit === "♠︎") {
@@ -49,8 +52,12 @@ const MakeCard = (props) => {
       <div className="card-br"><div className="card-value">{props.value}</div><div className="card-suit">{props.suit}</div></div>
       </div>);
   }
-
 };
+
+const makeButton = (cardHTML, index, func) => {
+  const HandButtons = <button onClick={func} key={index} className="hand-buttons">{ cardHTML }</button>
+  return HandButtons
+}
 
 const makeCol = (singleCard, index) => {
   return <Col key={index}>{singleCard}</Col>
@@ -70,10 +77,12 @@ const BuildGameBoard = (renderedCards) => {
   ]
   
   let freeSpaceCard = freeSpaceInfo.map((card, index) => {return <MakeCard key ={index + 100} suit={card.suit} value={card.val}/>})
+  // let freeSpaceButton = freeSpaceCard.map(makeButton)
+  // let freeSpaceButton = freeSpaceCard.map(makeButton)
   // console.log(freeSpaceCard)
   // let freeSpaceCard = <MakeCard key={index} suit={freeSpaceInfo.suit} value={freeSpaceInfo.val}/>
-  // let createCardsHTML = cardDeck.map((card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
-  let freeSpace = freeSpaceCard.map((card, index) => <Col key={index + 100}>{card}</Col>)
+  // let createCardHTML = cardDeck.map((card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
+  let freeSpace = freeSpaceCard.map((card, index) => <Col key={index + 100}>{card}</Col>).map(makeButton)
 
   const createGrid = (CardArray) => {
       let gridContainer = [[],[],[],[],[],[],[],[],[],[]]
