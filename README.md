@@ -1,6 +1,8 @@
 
 # Sequence
-Sequence is my Phase 3 React project for Digital Crafts that creates a web app version of the board game [Sequence](https://en.wikipedia.org/wiki/Sequence_(game))
+Sequence is the Phase 3 React project for Digital Crafts that creates a web app version of the board game [Sequence](https://en.wikipedia.org/wiki/Sequence_(game))
+
+The Purpose of this project was not necessarily to complete the game, but to utilize react. Because of the complexity of the project, I chose a reasonable stopping point and stopped there. 
 
 ## Technologies used:
 | Technology | Purpose |
