@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { Board } from './board.js';
 import  Hand  from './hand.jsx'
 import SequenceNavbar from './navbar';
+import GameBoard from './gameBoard.jsx'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <SequenceNavbar />
       <div className='board-container'>
         <div className='board'>
-          <Board />
+          <GameBoard />
         </div>
         <div className='Hand'>
           <Hand />

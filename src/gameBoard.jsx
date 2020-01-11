@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 //**************************************************************************************************************************
 // Gameboard Card Logic
 
-const makeGameBoardDeck = () => {
+const makeGameBoardDeck = () => { // Create the deck of cards for the gameboard
     const suits = ["♠︎", "♥︎", "♣︎", "♦︎"];
     const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Q", "K"];
     let cardDeck = [];
@@ -39,7 +39,7 @@ const createHTMLCardsFromDeck = (cardDeck) => {
 
   let createCardsHTML = cardDeck.map( (card, index) => {return <MakeCard key={index} suit={card.suit} value={card.val}/>} )
 
-  let createCardButtons = createCardsHTML.map(makeButton)
+  let createCardButtons = createCardsHTML.map(makeButton) //map the makeButton function over createCardsHTML
 
   // return createCardsHTML 
   return createCardButtons
@@ -58,6 +58,9 @@ const makeButton = (cardHTML, index, func) => {
   const HandButtons = <button onClick={func} key={index} className="hand-buttons">{ cardHTML }</button>
   return HandButtons
 }
+
+// This function will search the hand for the card that is present 
+// const searchHand = () => {}
 
 const makeCol = (singleCard, index) => {
   return <Col key={index}>{singleCard}</Col>
